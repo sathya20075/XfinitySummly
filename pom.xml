@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org</groupId>
+  <artifactId>XfinitySummly</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>XfinitySummly</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+   <pluginManagement>
+   <plugins>
+    <plugin>
+    	<groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-eclipse-plugin</artifactId>
+    <version>4.0</version>
+    <configuration>
+        <classpathContainers>
+           <classpathContainer>
+    org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8
+           </classpathContainer>
+        </classpathContainers>
+    </configuration>
+    </plugin>
+   </plugins>
+   </pluginManagement>
+   </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+	  <groupId>org.apache.httpcomponents</groupId>
+	  <artifactId>httpasyncclient</artifactId>
+	  <version>4.1.1</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache.httpcomponents</groupId>
+	  <artifactId>httpasyncclient-cache</artifactId>
+	  <version>4.1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.6.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20160212</version>
+	</dependency>
+	<dependency>
+		<groupId>net.sourceforge.nekohtml</groupId>
+		<artifactId>nekohtml</artifactId>
+		<version>1.9.22</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.cyberneko.pull</groupId>
+		<artifactId>nekopull</artifactId>
+		<version>0.2.4</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>xerces</groupId>
+		<artifactId>xerces</artifactId>
+		<version>2.4.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>de.l3s.boilerpipe</groupId>
+		<artifactId>boilerpipe</artifactId>
+		<version>1.1.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.mongodb</groupId>
+		<artifactId>mongo-java-driver</artifactId>
+		<version>3.2.2</version>
+	</dependency>
+	
+	
+	<dependency>
+		<groupId>com.googlecode.json-simple</groupId>
+		<artifactId>json-simple</artifactId>
+		<version>1.1.1</version>
+	</dependency>
+	
+	
+  </dependencies>
+
+  
+</project>
