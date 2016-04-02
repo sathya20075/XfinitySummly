@@ -18,8 +18,8 @@ public class DBInterface
 	private DB db;
 	private DBCollection dbCollec;
 	private String mongoHost="localhost";
-	private String databaseName="summly";
-	private String dbCollectionName="xsummly";
+	private String databaseName=DBDataProvider.DATABASENAME;
+	private String dbCollectionName="";
 	private int mongoPort=27017;
 	private static List<String> dbRecords;
 	
@@ -30,7 +30,7 @@ public class DBInterface
 		 * 
 		 */
 		DBInterface driver = new DBInterface();
-		driver.run();
+		driver.initializeMongoDB();
 		
 	}
 	
@@ -40,7 +40,7 @@ public class DBInterface
 		
 	}
 
-    private void run()
+    public DB initializeMongoDB()
     {
     	
     	try
@@ -49,16 +49,15 @@ public class DBInterface
     		db = getDatabaseInstance(mongodbClient,databaseName);
     		System.out.println("DB Initialized...");
     		
-    		dbCollec=getDatabaseCollection(db, dbCollectionName);
+    		
     		//printSingleArgsRecordFromDB(dbCollec,"info.area.geocode.value","600117");
     		
-
     		
     	}catch(Exception e)
     	{
     		e.printStackTrace();
     	}
-    	
+      return db;	
     }
 
 	public MongoClient getDBConnection(String mongoHost,int mongoPort) throws UnknownHostException  
