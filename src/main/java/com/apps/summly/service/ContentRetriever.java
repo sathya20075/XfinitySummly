@@ -16,9 +16,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParseException;
 
+import com.apps.summly.provider.News;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+
 
 import com.apps.summly.db.DBDataProvider;
 import com.apps.summly.utilities.Utilities;
@@ -39,7 +41,7 @@ public class ContentRetriever
 	public static void main(String args[])
 	{
 		ContentRetriever cr = new ContentRetriever();
-		cr.retrieveCurrentNewsContent();		
+				
 	}
 	
 	
@@ -58,7 +60,7 @@ public class ContentRetriever
 		}
 		
 		//printSingleArgsRecordFromDB(dbCollec,"newsKey","Politics-0204201618:58:52");
-		ParseRawNewsData();
+		
 		//printAllValuesInCollection(dbCollec);
 	}
 	
@@ -95,42 +97,96 @@ public class ContentRetriever
 		return newsRecords;
 	}
 	
-	public void ParseRawNewsData()
+	public List<News> NewsContentForTheDay()
 	{
+		String web_url=null;
+		String headline=null;
+		String[] multimedia=null;
+		String lead_paragraph=null;
+		String source=null;
+		String subType=null;
+		
+		int multimediaContentSize =0;
 		JsonParser parser = new JsonParser();
 		JsonArray newsarray = new JsonArray();
+		JsonArray multimediaArray = new JsonArray();
 		List<DBObject> newsRecords = new ArrayList<DBObject>();
+		List<News> newsContent = new ArrayList<News>();
+		
+		retrieveCurrentNewsContent();
 		newsRecords = printSingleArgsRecordFromDB(dbCollec,"newsKey","Business-0204201620:41:02");	
 		if(newsRecords.size() != 0)
 		{   
+			
 			for(int newsindex=0;newsindex<=newsRecords.size()-1;newsindex++)
 			{
 				newsarray=parser.parse(newsRecords.get(newsindex).toString()).getAsJsonObject().get("response")
 						 .getAsJsonObject().getAsJsonArray("docs");
 				for(int docsindex=0;docsindex<=newsarray.size()-1;docsindex++)
-				{
+				  {
 					System.out.println("============== Document: "+docsindex+" =================");
-					if((newsarray.get(docsindex).getAsJsonObject().get("web_url").toString().trim().contains(".html")))
-					{
-						System.out.println(newsarray.get(docsindex).getAsJsonObject().get("web_url"));
-						System.out.println(newsarray.get(docsindex).getAsJsonObject().get("headline").getAsJsonObject().get("main"));
-						System.out.println(newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray());
-						System.out.println(newsarray.get(docsindex).getAsJsonObject().get("lead_paragraph"));
-						System.out.println(newsarray.get(docsindex).getAsJsonObject().get("source"));
-						System.out.println("============== ***************************** =================");
-						System.out.println();
-					}
+						if((newsarray.get(docsindex).getAsJsonObject().get("web_url").toString().trim().contains(".html")))
+						{			
+							
+							web_url = newsarray.get(docsindex).getAsJsonObject().get("web_url").toString().replace("\"", "").trim();
+							headline = newsarray.get(docsindex).getAsJsonObject().get("headline").getAsJsonObject().get("main").toString().replace("\"", "").trim();
+							
+							
+							/*  Retriving thumbnail and wide images and storing in array*/
+							multimediaArray = newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray();
+							multimediaContentSize= newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray().toString().length();
+							
+							if(multimediaContentSize > 2)
+							{
+								multimedia = new String[2];
+								for(int mindex=0;mindex<=multimediaArray.size()-1;mindex++)
+								{
+									subType = newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray().get(mindex).getAsJsonObject().get("subtype").toString().trim();
+									
+									if((subType.equals("\"wide\"")))
+									{
+										multimedia[0] = newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray().get(mindex).getAsJsonObject().get("url").toString().replace("\"", "").trim();
+								        System.out.println(newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray().get(mindex).getAsJsonObject().get("url").toString().replace("\"", "").trim());
+								        
+									}
+									else if((subType.equals("\"thumbnail\"")))
+									{
+										multimedia[1] = newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray().get(mindex).getAsJsonObject().get("url").toString().replace("\"", "").trim(); 
+										System.out.println(newsarray.get(docsindex).getAsJsonObject().get("multimedia").getAsJsonArray().get(mindex).getAsJsonObject().get("url").toString().replace("\"", "").trim());
+									}
+								} // end of multimedia array
+								
+							}							
+							
+							else
+							{
+								multimedia =null;
+							}
+							
+							
+							
+							lead_paragraph = newsarray.get(docsindex).getAsJsonObject().get("lead_paragraph").toString().replace("\"", "").trim();
+							source = newsarray.get(docsindex).getAsJsonObject().get("source").toString().replace("\"", "").trim();
+							News news = new News(web_url,headline,multimedia,lead_paragraph,source);
+							newsContent.add(news);
+							//News news = new News()
+							
+							
+							System.out.println("============== ***************************** =================");
+							System.out.println();						
+						}
 					
-				}//end of docs iteration
+					}//end of docs iteration				
 				
-				
-			} // end of news iteration
+			 }// end of news iteration
+			System.out.println("NewsLength: " +newsContent.size());
 		}
 		else
 		{
 			System.out.println("Empty News Records..");
 			System.exit(0);
 		}
+	  return newsContent;	
 	}
 	
 	//public void parseNewsJSONRecord()

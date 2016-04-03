@@ -14,6 +14,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+	 <repositories>
+	  <repository>
+	    <id>bedatadriven</id>
+	    <name>bedatadriven public repo</name>
+	    <url>https://nexus.bedatadriven.com/content/groups/public/</url>
+	  </repository>
+	</repositories>
+
   <build>
    <pluginManagement>
    <plugins>
@@ -59,30 +67,14 @@
 		<groupId>org.json</groupId>
 		<artifactId>json</artifactId>
 		<version>20160212</version>
-	</dependency>
-	<dependency>
-		<groupId>net.sourceforge.nekohtml</groupId>
-		<artifactId>nekohtml</artifactId>
-		<version>1.9.22</version>
-	</dependency>
-	
-	<dependency>
-		<groupId>org.cyberneko.pull</groupId>
-		<artifactId>nekopull</artifactId>
-		<version>0.2.4</version>
-	</dependency>
+	</dependency>	
 	
 	<dependency>
 		<groupId>xerces</groupId>
 		<artifactId>xerces</artifactId>
 		<version>2.4.0</version>
-	</dependency>
+	</dependency>	
 	
-	<dependency>
-		<groupId>de.l3s.boilerpipe</groupId>
-		<artifactId>boilerpipe</artifactId>
-		<version>1.1.0</version>
-	</dependency>
 	<dependency>
 		<groupId>org.mongodb</groupId>
 		<artifactId>mongo-java-driver</artifactId>
@@ -100,6 +92,13 @@
 	    <artifactId>jackson-databind</artifactId>
 	    <version>2.2.3</version>
 	</dependency>
+	
+ 	 <dependency>
+		<groupId>org.nuiton.thirdparty</groupId>
+		<artifactId>JRI</artifactId>
+		<version>0.8-4</version>
+	 </dependency>
+ 	 
 	
   </dependencies>
 
