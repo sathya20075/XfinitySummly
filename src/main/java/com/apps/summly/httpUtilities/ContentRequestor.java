@@ -168,7 +168,8 @@ public class ContentRequestor
 								updatedURLResponse=objectMapper.writeValueAsString(rootNode).toString();								
 							    System.out.println(updatedURLResponse);  
 								dbObject = (DBObject) JSON.parse(updatedURLResponse);								
-								dbCollection.insert(dbObject);								
+								dbCollection.insert(dbObject);	
+								
 							}
 							else
 							{

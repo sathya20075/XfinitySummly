@@ -41,6 +41,8 @@ public class ContentRetriever
 	public static void main(String args[])
 	{
 		ContentRetriever cr = new ContentRetriever();
+		cr.retrieveCurrentNewsContent();
+		cr.NewsContentForTheDay("Business-0204201620:41:02");
 				
 	}
 	
@@ -97,7 +99,7 @@ public class ContentRetriever
 		return newsRecords;
 	}
 	
-	public List<News> NewsContentForTheDay()
+	public List<News> NewsContentForTheDay(String newsKey)
 	{
 		String web_url=null;
 		String headline=null;
@@ -114,7 +116,7 @@ public class ContentRetriever
 		List<News> newsContent = new ArrayList<News>();
 		
 		retrieveCurrentNewsContent();
-		newsRecords = printSingleArgsRecordFromDB(dbCollec,"newsKey","Business-0204201620:41:02");	
+		newsRecords = printSingleArgsRecordFromDB(dbCollec,"newsKey",newsKey);	
 		if(newsRecords.size() != 0)
 		{   
 			
@@ -160,14 +162,14 @@ public class ContentRetriever
 							
 							else
 							{
-								multimedia =null;
+								multimedia= new String[0];
 							}
 							
 							
 							
 							lead_paragraph = newsarray.get(docsindex).getAsJsonObject().get("lead_paragraph").toString().replace("\"", "").trim();
 							source = newsarray.get(docsindex).getAsJsonObject().get("source").toString().replace("\"", "").trim();
-							News news = new News(web_url,headline,multimedia,lead_paragraph,source);
+							News news = new News(newsKey,web_url,headline,multimedia,lead_paragraph,source);
 							newsContent.add(news);
 							//News news = new News()
 							

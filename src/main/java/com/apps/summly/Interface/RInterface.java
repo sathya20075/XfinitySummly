@@ -21,7 +21,7 @@ public class RInterface
 		RConnection rconnection = null;
 		RInterface callInterface = new RInterface();
 		rconnection =callInterface.initializeRServer(RSERVERHOST,RSERVERPORT);
-		callInterface.callHTMLContentExtractor("http://www.nytimes.com/2016/03/24/business/at-new-york-auto-show-a-parade-of-new-models.html",rconnection);
+		callInterface.callHTMLContentExtractor("http://www.nytimes.com/2016/03/24/business/pinnacle-foods-ceo-named-as-next-chief-of-keurig.html",rconnection);
 	}
 	
 	public RConnection initializeRServer(String host,int port)
@@ -47,15 +47,15 @@ public class RInterface
 			
 			if(connection.isConnected())
 			{
-				System.out.println("Connected to RServer through Java interface..");
-				//connection.eval("source('D:\\\\DataMining.R')");
+				//System.out.println("Connected to RServer through Java interface..");
+				connection.eval("source('D:\\\\DataMining.R')");
 				
 				connection.eval("library('XML')");
 				connection.eval("library('httr')");
 				connection.eval("p <- GET('"+htmlURL+"')");				
 				connection.eval("html <- content(p, 'text')");
 			    content = connection.eval("parseArticleBody(html)").asStrings();
-				System.out.println(content[0]);
+				//System.out.println(content[0]);
 			}
 			else
 			{
