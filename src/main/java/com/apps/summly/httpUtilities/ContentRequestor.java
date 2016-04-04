@@ -70,8 +70,8 @@ public class ContentRequestor
 		builder.addParameter("callback", "svc_search_v2_articlesearch");
 		builder.addParameter("fq", "news_desk:"+(NEWS_TYPE));
 		builder.addParameter("api-key", "0cfeeba81735d896bffd4a64fa22e393:17:74788228");
-		builder.addParameter("begin_date", "20160324");
-		builder.addParameter("end_date", "20160324");
+		builder.addParameter("begin_date", Utilities.getCurrentDate());
+		builder.addParameter("end_date", Utilities.getCurrentDate());
 		builder.addParameter("sort", "newest");
 		QueryString = builder.toString();		
 		return QueryString;

@@ -10,6 +10,7 @@ public class Utilities
 	{
 		Utilities util = new Utilities();
 		System.out.println(util.getCurrentDateAndTime());
+		System.err.println(util.getCurrentDate());
 	}
 	
 	public static String getCurrentDateAndTime()
@@ -20,6 +21,16 @@ public class Utilities
 		currentDateAndTime = sdf.format(calc.getTime());
 	    
 		return currentDateAndTime;
+	}
+	
+	public static String getCurrentDate()
+	{
+		String currentDate = null;
+		Calendar calc = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		currentDate = sdf.format(calc.getTime());
+	    
+		return currentDate;
 	}
 	
 }
